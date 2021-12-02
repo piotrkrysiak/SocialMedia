@@ -13,8 +13,8 @@ export interface IUser extends Document {
   password: string;
   profilePicture?: string;
   coverPicture?: string;
-  followers?: number[];
-  following?: number[];
+  followers?: string[];
+  following?: string[];
   isAdmin?: boolean;
   description?: string;
   city?: string;
@@ -53,11 +53,11 @@ const UserSchema = new Schema<IUser>(
       default: "",
     },
     followers: {
-      type: [Number],
+      type: [String],
       default: [],
     },
     following: {
-      type: [Number],
+      type: [String],
       default: [],
     },
     isAdmin: {
