@@ -1,15 +1,15 @@
-import express from "express";
-import bcrypt from "bcrypt";
+import { Router } from "express";
+import { genSaltSync, hashSync } from "bcrypt";
 import User from "../models/User";
 
-const router = express.Router();
+const router = Router();
 
 router.put("/:id", async (req, res) => {
   if (req.body.userId === req.params.id || req.body.isAdmin) {
     if (req.body.password) {
       try {
-        const salt = bcrypt.genSaltSync(10);
-        const hash = bcrypt.hashSync(req.body.password, salt);
+        const salt = genSaltSync(10);
+        const hash = hashSync(req.body.password, salt);
         req.body.password = hash;
       } catch (error) {
         return res.status(500).json(error);

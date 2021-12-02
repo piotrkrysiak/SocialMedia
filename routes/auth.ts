@@ -1,13 +1,13 @@
-import express from "express";
+import { Router } from "express";
+import { genSalt, hash, compare } from "bcrypt";
 import User, { IUser } from "../models/User";
-import bcrypt from "bcrypt";
 
-const router = express.Router();
+const router = Router();
 
 router.post("/register", async (req, res) => {
   try {
-    const salt = await bcrypt.genSalt(10);
-    const hiddenPassword = await bcrypt.hash(req.body.password, salt);
+    const salt = await genSalt(10);
+    const hiddenPassword = await hash(req.body.password, salt);
     const user: IUser = new User({
       username: req.body.username,
       email: req.body.email,
@@ -24,10 +24,7 @@ router.post("/login", async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email });
     !user && res.status(404).json("User not found");
-    const validPassword = await bcrypt.compare(
-      req.body.password,
-      user!.password
-    );
+    const validPassword = await compare(req.body.password, user!.password);
     !validPassword && res.status(400).json("Invalid credentials");
     res.status(200).json(user);
   } catch (error) {

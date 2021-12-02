@@ -4,7 +4,7 @@ export interface IPost extends Document {
   userId: string;
   description: string;
   image: string;
-  likes: number[];
+  likes: string[]; // array of userIds
   _doc: any; // MongoResult
 }
 

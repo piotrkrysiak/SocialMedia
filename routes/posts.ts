@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Post, { IPost } from "../models/Post";
+import Post from "../models/Post";
 
 const router = Router();
 
