@@ -22,7 +22,7 @@ const PostSchema = new Schema<IPost>(
       type: String,
     },
     likes: {
-      type: [Number],
+      type: [String],
       default: [],
     },
   },
